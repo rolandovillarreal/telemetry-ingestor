@@ -37,7 +37,7 @@ Asegúrate de contar con lo siguiente en tu entorno local:
 1. **Clonar el repositorio:**
 
    ```bash
-   git clone [https://github.com/tu-usuario/telemetry-ingestor.git](https://github.com/tu-usuario/telemetry-ingestor.git)
+   git clone [https://github.com/rolandovillarreal/telemetry-ingestor.git](https://github.com/rolandovillarreal/telemetry-ingestor.git)
    cd telemetry-ingestor
    ```
 
@@ -58,7 +58,7 @@ DB_DATABASE=telemetry_db
 DB_PASSWORD=tu_contraseña_postgres
 DB_PORT=5432
 DB_MAX_CONNECTIONS=20
-TCP_PORT=22167
+TCP_PORT=puerto_tcp_cualquiera_mayor_1024
 ```
 
 4. ** Inicializar la base de datos:**
