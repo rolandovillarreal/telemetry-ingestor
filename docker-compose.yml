@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: telemetry_postgres
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+    ports:
+      - '${DB_PORT:-5432}:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: unless-stopped
+
+  app:
+    build: .
+    container_name: telemetry_ingestor
+    environment:
+      - DB_USER=${DB_USER}
+      - DB_HOST=postgres
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_PORT=5432
+      - TCP_PORT=${TCP_PORT}
+    ports:
+      - '${TCP_PORT}:${TCP_PORT}'
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
